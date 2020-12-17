@@ -8,6 +8,7 @@
 #import "SEGStorage.h"
 #import "SEGMacros.h"
 #import "SEGState.h"
+#import "SEGAnalyticsConfiguration.h"
 
 #if TARGET_OS_IPHONE
 @import UIKit;
@@ -286,6 +287,7 @@ NSUInteger const kSEGBackgroundTaskInvalid = 0;
         [payload setValue:[self integrationsDictionary:integrations] forKey:@"integrations"];
 
         [payload setValue:[context copy] forKey:@"context"];
+        [payload setValue:[SEGState sharedInstance].configuration.writeKey forKey:@"writeKey"];
 
         SEGLog(@"%@ Enqueueing action: %@", self, payload);
         
@@ -393,7 +395,7 @@ NSUInteger const kSEGBackgroundTaskInvalid = 0;
 
     SEGLog(@"%@ Flushing %lu of %lu queued API calls.", self, (unsigned long)batch.count, (unsigned long)self.queue.count);
     SEGLog(@"Flushing batch %@.", payload);
-
+   
     self.batchRequest = [self.httpClient upload:payload forWriteKey:self.configuration.writeKey completionHandler:^(BOOL retry) {
         void (^completion)(void) = ^{
             if (retry) {

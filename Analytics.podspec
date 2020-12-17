@@ -1,19 +1,17 @@
 Pod::Spec.new do |s|
-  s.name             = "Analytics"
+  s.name             = "Intilery Analytics"
   s.module_name      = "Segment"
   s.version          = "4.1.2"
   s.summary          = "The hassle-free way to add analytics to your iOS app."
 
   s.description      = <<-DESC
-                       Analytics for iOS provides a single API that lets you
-                       integrate with over 100s of tools.
+                       Analytics for iOS provides a single API that allows you to send events to intilery.
                        DESC
 
-  s.homepage         = "http://segment.com/"
+  s.homepage         = "http://intilery.com/"
   s.license          =  { :type => 'MIT' }
-  s.author           = { "Segment" => "friends@segment.com" }
-  s.source           = { :git => "https://github.com/segmentio/analytics-ios.git", :tag => s.version.to_s }
-  s.social_media_url = 'https://twitter.com/segment'
+  s.author           = { "Intilery" => "support@intilery.com" }
+  s.source           = { :git => "https://github.com/Intilery/analytics-ios", :tag => s.version.to_s }
 
   s.ios.deployment_target = '10.0'
   s.tvos.deployment_target = '10.0'

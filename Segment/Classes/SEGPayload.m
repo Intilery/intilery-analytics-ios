@@ -1,5 +1,7 @@
 #import "SEGPayload.h"
 #import "SEGState.h"
+#import "SEGAnalyticsConfiguration.h"
+
 
 @implementation SEGPayload
 
@@ -11,7 +13,6 @@
     if (self = [super init]) {
         // combine existing state with user supplied context.
         NSDictionary *internalContext = [SEGState sharedInstance].context.payload;
-        
         NSMutableDictionary *combinedContext = [[NSMutableDictionary alloc] init];
         [combinedContext addEntriesFromDictionary:internalContext];
         [combinedContext addEntriesFromDictionary:context];

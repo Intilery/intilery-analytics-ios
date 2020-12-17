@@ -13,6 +13,7 @@ NS_SWIFT_NAME(Payload)
 @property (nonatomic, strong) NSString *anonymousId;
 @property (nonatomic, strong) NSString *userId;
 
+
 - (instancetype)initWithContext:(JSON_DICT)context integrations:(JSON_DICT)integrations;
 
 @end

@@ -13,12 +13,12 @@ static const NSUInteger kMaxBatchSize = 475000; // 475KB
     };
 }
 
-+ (NSString *)authorizationHeader:(NSString *)writeKey
-{
-    NSString *rawHeader = [writeKey stringByAppendingString:@":"];
-    NSData *userPasswordData = [rawHeader dataUsingEncoding:NSUTF8StringEncoding];
-    return [userPasswordData base64EncodedStringWithOptions:0];
-}
+//+ (NSString *)authorizationHeader:(NSString *)writeKey
+//{
+//    NSString *rawHeader = [writeKey stringByAppendingString:@":"];
+//    NSData *userPasswordData = [rawHeader dataUsingEncoding:NSUTF8StringEncoding];
+//    return [userPasswordData base64EncodedStringWithOptions:0];
+//}
 
 
 - (instancetype)initWithRequestFactory:(SEGRequestFactory)requestFactory
@@ -49,7 +49,6 @@ static const NSUInteger kMaxBatchSize = 475000; // 475KB
             @"Accept-Encoding" : @"gzip",
             @"Content-Encoding" : @"gzip",
             @"Content-Type" : @"application/json",
-            @"Authorization" : [@"Basic " stringByAppendingString:[[self class] authorizationHeader:writeKey]],
             @"User-Agent" : [NSString stringWithFormat:@"analytics-ios/%@", [SEGAnalytics version]],
         };
         session = [NSURLSession sessionWithConfiguration:config delegate:self.httpSessionDelegate delegateQueue:NULL];
@@ -72,7 +71,7 @@ static const NSUInteger kMaxBatchSize = 475000; // 475KB
     //    batch = SEGCoerceDictionary(batch);
     NSURLSession *session = [self sessionForWriteKey:writeKey];
 
-    NSURL *url = [SEGMENT_API_BASE URLByAppendingPathComponent:@"batch"];
+    NSURL *url = [SEGMENT_API_BASE URLByAppendingPathComponent:@""];
     NSMutableURLRequest *request = self.requestFactory(url);
 
     // This is a workaround for an IOS 8.3 bug that causes Content-Type to be incorrectly set
@@ -83,6 +82,7 @@ static const NSUInteger kMaxBatchSize = 475000; // 475KB
     NSError *error = nil;
     NSException *exception = nil;
     NSData *payload = nil;
+
     @try {
         payload = [NSJSONSerialization dataWithJSONObject:batch options:0 error:&error];
     }
@@ -94,6 +94,7 @@ static const NSUInteger kMaxBatchSize = 475000; // 475KB
         completionHandler(NO); // Don't retry this batch.
         return nil;
     }
+    
     if (payload.length >= kMaxBatchSize) {
         SEGLog(@"Payload exceeded the limit of %luKB per batch", kMaxBatchSize / 1000);
         completionHandler(NO);

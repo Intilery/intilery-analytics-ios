@@ -55,6 +55,7 @@
     // of immutable data structure without the cost of having to allocate and reallocate
     // objects over and over again.
     SEGContext *context = self.debug ? [self copy] : self;
+    
     NSString *originalTimestamp = context.payload.timestamp;
     modify(context);
     if (originalTimestamp) {
