@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
   s.name             = "IntileryAnalytics"
   s.module_name      = "Segment"
-  s.version          = "1.0.0"
+  s.version          = "v1.0.0"
   s.summary          = "The hassle-free way to add analytics to your iOS app."
 
   s.description      = <<-DESC
